@@ -23,6 +23,16 @@
   </head>
   <body onload="load_editor()">
 <div id="demos">
+
+<div class="demo">
+<span class="title">placeholder 1</span>
+<textarea class="content">
+;; code goes here!
+
+(== x 42)
+</textarea>
+</div>
+  
 <div class="demo">
 <span class="title">relational interpreter</span>
 <textarea class="content">
@@ -129,6 +139,7 @@
              (quote ,y)) '() '(a b c d e))
 </textarea>
 </div>
+
 <div class="demo">
 <span class="title">type inference</span>
 <textarea class="content">
@@ -190,6 +201,7 @@
 (!-o '() '(let ((f (lambda (x) x))) (f (cons (f 5) (f #t)))) q)
 </textarea>
 </div>
+
 <div class="demo">
 <span class="title">numbers</span>
 <textarea class="content">
@@ -489,6 +501,7 @@
 (*o x y '(0 0 1 0 0 1 0 1 1))
 </textarea>
 </div>
+
 <div class="demo">
 <span class="title">reasoned schemer prelude</span>
 <textarea class="content">
@@ -573,6 +586,7 @@
 (define alwayso (anyo succeed))
 </textarea>
 </div>
+
 <div class="demo">
 <span class="title">grammar</span>
 <textarea class="content">
@@ -622,6 +636,7 @@
 (sentenceo '(det noun verb det noun) s)
 </textarea>
 </div>
+
 </div>
 <div id="container">
 <div id="head">
