@@ -463,15 +463,16 @@
          ((quasi-p-match a v1 penv penv^)
           (quasi-p-no-match d v2 penv^ penv-out)))))))
 
-(define initial-env `((list . (val . (closure (lambda x x) ,empty-env)))
-                      (not . (val . (prim . not)))
-                      (equal? . (val . (prim . equal?)))
-                      (symbol? . (val . (prim . symbol?)))
-                      (cons . (val . (prim . cons)))
-                      (null? . (val . (prim . null?)))
-                      (car . (val . (prim . car)))
-                      (cdr . (val . (prim . cdr)))
-                      . ,empty-env))
+(define initial-env
+  `((list . (val . (closure (lambda x x) ,empty-env)))
+    (not . (val . (prim . not)))
+    (equal? . (val . (prim . equal?)))
+    (symbol? . (val . (prim . symbol?)))
+    (cons . (val . (prim . cons)))
+    (null? . (val . (prim . null?)))
+    (car . (val . (prim . car)))
+    (cdr . (val . (prim . cdr)))
+    . ,empty-env))
 </textarea>
 </div>
 
