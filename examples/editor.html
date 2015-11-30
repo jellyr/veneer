@@ -68,6 +68,9 @@
 <span class="title">large relational interpreter</span>
 <textarea class="content">
 ;; relational Scheme interpreter with pattern matching
+;; and primitives in initial environment
+
+;; The Scheme interpreter:
 
 (define empty-env '())
 
@@ -344,6 +347,8 @@
        (== `((,y . (val . ,v)) . ,rest) env1)
        (== `((,y . (val . ,v)) . ,res) env-out)
        (regular-env-appendo rest env2 res)))))
+
+;; Pattern-matching extension:
 
 (define (match-clauses mval clauses env val)
   (fresh (top-p result-expr d penv)
