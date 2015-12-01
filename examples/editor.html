@@ -28,7 +28,28 @@
 <div class="demo">
 <span class="title">miniKanren language basics</span>
 <textarea class="content">
-;; code goes here!
+
+; motivation
+
+;; 2 + 3 = 5
+
+;; (+ 2 3) => 5 ; functional viewpoint
+
+;; (+o 2 3 5) ; relational viewpoint
+;; ; success
+
+;; (+o 2 3 6)
+;; ; failure
+
+;; (+o 2 3 Z) ; Z <- logic variable   Z = 5
+
+;; (+o X 3 5) ; X <- logic variable   X = 2
+
+;; (+o X Y 5) ; x = 0, y = 5; ... x = 2, y = 3; ...
+
+;; (+o X Y Z)
+
+;; (FOO 2 3 5)
 
 </textarea>
 </div>
