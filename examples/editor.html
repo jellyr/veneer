@@ -90,7 +90,26 @@
 <div class="demo">
 <span class="title">appendo</span>
 <textarea class="content">
+
 ;; code goes here!
+
+(define appendo
+  (lambda (l1 l2 out)
+    (conde
+     ((fresh (first rest result)
+         (== (cons first result) out)
+         (== (cons first rest) l1)
+         (appendo rest l2 result)))
+      ((== '() l1) (== l2 out)))))
+
+(appendo '(1 2 3) '(4 5) Z)
+
+(appendo '(1 2 3) Y '(1 2 3 4 5))
+
+(appendo X Y '(1 2 3 4 5))
+
+(appendo X Y Z)
+
 
 </textarea>
 </div>
