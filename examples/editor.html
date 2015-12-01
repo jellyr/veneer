@@ -67,6 +67,15 @@
 
 
 <div class="demo">
+<span class="title">type inferencer</span>
+<textarea class="content">
+;; code goes here!
+
+</textarea>
+</div>
+
+
+<div class="demo">
 <span class="title">small relational interpreter</span>
 <textarea class="content">
 ;; code goes here!
@@ -494,77 +503,6 @@
 
 
 <div class="demo">
-<span class="title">small type inferencer</span>
-<textarea class="content">
-;; code goes here!
-
-</textarea>
-</div>
-
-
-<div class="demo">
-<span class="title">larger type inferencer</span>
-<textarea class="content">
-(define (!-o gamma expr type)
-  (conde
-    ((symbolo expr)
-     (lookupo gamma expr type))
-    ((numbero expr)
-     (== 'int type))       
-    ((== #f expr)
-     (== 'bool type))       
-    ((== #t expr)
-     (== 'bool type))
-    ((fresh (x e T1 T2)
-       (== `(lambda (,x) ,e) expr)
-       (== `(,T1 -> ,T2) type)
-       (symbolo x)
-       (!-o `((,x : ,T1) . ,gamma) e T2)))
-    ((fresh (f e e^ t-ignore)
-       (== `(let ((,f ,e)) ,e^) expr)
-       (symbolo f)
-       (!-o `((,f poly ,e ,gamma) . ,gamma) e^ type)
-       (!-o gamma e t-ignore)))
-    ((fresh (e1 e2 T)
-       (== `(,e1 ,e2) expr)
-       (!-o gamma e1 `(,T -> ,type))
-       (!-o gamma e2 T)))
-    ((fresh (e1 e2)
-       (== `(+ ,e1 ,e2) expr)
-       (== 'int type)
-       (!-o gamma e1 'int)
-       (!-o gamma e2 'int)))
-    ((fresh (e1 e2 T1 T2)
-       (== `(cons ,e1 ,e2) expr)
-       (== `(pair ,T1 ,T2) type)
-       (!-o gamma e1 T1)
-       (!-o gamma e2 T2)))       
-    ((fresh (e1 e2 e3)
-       (== `(if ,e1 ,e2 ,e3) expr)
-       (!-o gamma e1 'bool)
-       (!-o gamma e2 type)
-       (!-o gamma e3 type)))))
-
-(define (lookupo gamma x t)
-  (fresh ()
-    (symbolo x)
-    (conde
-      ((fresh (e gamma^ _)
-         (== `((,x poly ,e ,gamma^) . ,_) gamma)
-         (!-o gamma^ e t)))
-      ((fresh (_)
-         (== `((,x : ,t) . ,_) gamma)))                         
-      ((fresh (y _ gamma^)
-         (== `((,y . ,_) . ,gamma^) gamma)
-         (=/= x y)
-         (symbolo y)
-         (lookupo gamma^ x t))))))
-
-(!-o '() '(let ((f (lambda (x) x))) (f (cons (f 5) (f #t)))) q)
-</textarea>
-</div>
-
-<div class="demo">
 <span class="title">numbers</span>
 <textarea class="content">
 ;; number relations based on "oleg numbers"
@@ -864,90 +802,6 @@
 </textarea>
 </div>
 
-<div class="demo">
-<span class="title">reasoned schemer prelude</span>
-<textarea class="content">
-(define caro
-  (lambda (p a)
-    (fresh (d)
-      (== (cons a d) p))))
-
-(define cdro
-  (lambda (p d)
-    (fresh (a)
-      (== (cons a d) p))))
-
-(define conso
-  (lambda (a d p)
-    (== (cons a d) p)))
-
-(define nullo
-  (lambda (x)
-    (== '() x)))
-
-(define eqo
-  (lambda (x y)
-    (== x y)))
-
-(define eq-caro
-  (lambda (l x)
-    (caro l x)))
-
-(define pairo
-  (lambda (p)
-    (fresh (a d)
-      (conso a d p))))
-
-(define listo
-  (lambda (l)
-    (conde
-      ((nullo l))
-      ((pairo l)
-       (fresh (d)
-         (cdro l d)
-         (listo d))))))
-
-(define membero
-  (lambda (x l)
-    (conde
-      ((eq-caro l x))
-      ((fresh (d)
-         (cdro l d)
-         (membero x d))))))
-
-(define rembero  
-  (lambda (x l out)
-    (conde
-      ((nullo l) (== '() out))
-      ((eq-caro l x) (cdro l out))
-      ((fresh (a d res)
-         (conso a d l)
-         (rembero x d res)
-         (conso a res out))))))
-
-(define appendo
-  (lambda (l s out)
-    (conde
-      ((nullo l) (== s out))
-      ((fresh (a d res)
-         (conso a d l)
-         (conso a res out)
-         (appendo d s res))))))
-
-(define anyo
-  (lambda (g)
-    (conde
-      (g)
-      ((anyo g)))))
-
-(define fail (== 'war 'peace))
-(define succeed (== 'a 'a))
-
-(define nevero (anyo fail))
- 
-(define alwayso (anyo succeed))
-</textarea>
-</div>
 
 <div class="demo">
 <span class="title">natural language grammar</span>
